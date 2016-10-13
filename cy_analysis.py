@@ -22,23 +22,19 @@ def get_transaction_TS(db, fac_a, fac_b):
   df = df.rename(index=str, columns={'Prototype': 'SenderProto'})
 #remove SenderId from transation table (cleaning)
   df = df.drop('SenderId',1)
-  print("merge1 ok")
 #Same for Receiver ...
   df = pd.merge(agents_Receiver[['SimId', 'ReceiverId', 'Prototype']], df, on=['SimId', 'ReceiverId'])
   df = df.rename(index=str, columns={'Prototype': 'ReceiverProto'})
   df = df.drop('ReceiverId',1)
-  print("merge 2 ok")
 
 
 # Get resource Table
   resource = evaler.eval('Resources')
   df = pd.merge(resource[['SimId', 'ResourceId','QualId','Quantity','Units'  ]], df, on=['SimId', 'ResourceId'])
   df = df.drop('ResourceId',1)
-  print("merge 3 ok")
 
 
   trans = df[['ReceiverProto', 'SenderProto','Time', 'Quantity']].groupby(['ReceiverProto', 'SenderProto','Time']).sum()
-  print("group  ok")
   
   index = trans.index.levels[0]
 
@@ -46,18 +42,30 @@ def get_transaction_TS(db, fac_a, fac_b):
   b_in = False
 
   for word in index:
-    if(fac_a == word)
+    if(fac_a == word):
       a_in = True
-    if(fac_b == word)
-      b_in = True
-  
-  if a_in && b_in):
-    toplot = trans.loc[fac_b].loc[fac_a]
-  else
-    print(word)
-    return
-  print("selection ok")
 
-return toplot
+  if(a_in == False):
+    print("Bad receiver name, available receiver are: ")
+    for word in index :
+      print(word)
+  
+  index2 = trans.index.levels[1]
+
+  for word in index2:
+    if(fac_b == word):
+      b_in = True
+
+  if(b_in == False):
+    print("Bad sender name, available sender are: ")
+    for word in index2:
+      print(word)
+  
+  if( a_in and b_in):
+    toplot = trans.loc[fac_a].loc[fac_b]
+  else:
+    toplot = 0
+
+  return toplot
 
 
