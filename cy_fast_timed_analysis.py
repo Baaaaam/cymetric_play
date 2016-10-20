@@ -95,3 +95,45 @@ def get_transaction_TS(db, sender, receiver):
   return toplot
 
 
+def get_inventory(db, facility):
+  start = timer()
+  #initiate evaluation
+  evaler = cym.Evaluator(db)
+  now = timer()
+  print('evaler  done:', now-start)
+  start = timer()
+  
+  # Get inventory table
+  inv = evaler.eval('ExplicitInventory')
+  agents = evaler.eval('AgentEntry')
+  now = timer()
+  print('table ok done:', now-start)
+  start = timer()
+
+  selected_agents = agents.loc[lambda df: df.Prototype == facility,:]
+  if selected_agents.empty:
+    print("unknown Facitlity, available Facilities are:")
+    for fac_name in inv.Prototype.unique():
+      print(fac_name)
+    inv_table = 0
+    now = timer()
+    print('fac selected done:', now-start)
+    start = timer()
+  else:
+    selected_inv = inv.loc[inv['AgentId'].isin(selected_agents.AgentId)]
+    now = timer()
+    print('selected done:', now-start)
+    start = timer()
+    
+    df = pd.merge(selected_agents[['SimId', 'AgentId', 'Prototype']], selected_inv, on=['SimId', 'AgentId'])
+    df = df.drop('AgentId',1)
+    now = timer()
+    print('merged done:', now-start)
+    start = timer()
+    
+    inv_table = df[['Prototype', 'Time','Quantity']].groupby(['Prototype', 'Time']).sum()
+    now = timer()
+    print('grouped done:', now-start)
+    start = timer()
+
+  return inv_table

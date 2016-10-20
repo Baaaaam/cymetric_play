@@ -10,9 +10,6 @@ def get_transaction_TS(db, sender, receiver):
   # get transation & Agent tables
   trans = evaler.eval('Transactions')
   agents = evaler.eval('AgentEntry')
-  now = timer()
-  print('trans + agent done:', now-start)
-  start = timer()
   
 # build 2 table for SenderId and ReceiverId
   # get receiver
@@ -21,7 +18,7 @@ def get_transaction_TS(db, sender, receiver):
   # check if receiver exists
   if selected_receiver.empty:
     print("unknown Receiver, available Receiver are:")
-    for receiver_name in agents_Receiver.Prototype.unique():
+    for receiver_name in agents_Receiver.Prototype.unique(): #check if the loop is correct should it not be trans.XX.XX
       print(receiver_name)
   
   # get sender
@@ -65,11 +62,27 @@ def get_transaction_TS(db, sender, receiver):
     trans_table = grouped_trans.loc[receiver].loc[sender]
   return trans_table
 
+
 def get_inventory(db, facility):
   #initiate evaluation
   evaler = cym.Evaluator(db)
-
+  
   # Get inventory table
   inv = evaler.eval('ExplicitInventory')
+  agents = evaler.eval('AgentEntry')
 
-  selected_inv = inv.loc[lambda df: df.InventoryName == facility,:]
+  selected_agents = agents.loc[lambda df: df.Prototype == facility,:]
+  if selected_agents.empty:
+    print("unknown Facitlity, available Facilities are:")
+    for fac_name in inv.Prototype.unique():
+      print(fac_name)
+    inv_table = 0
+  else:
+    selected_inv = inv.loc[inv['AgentId'].isin(selected_agents.AgentId)]
+    
+    df = pd.merge(selected_agents[['SimId', 'AgentId', 'Prototype']], selected_inv, on=['SimId', 'AgentId'])
+    df = df.drop('AgentId',1)
+    
+    inv_table = df[['Prototype', 'Time','Quantity']].groupby(['Prototype', 'Time']).sum()
+
+  return inv_table
