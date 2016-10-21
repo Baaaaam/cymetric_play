@@ -3,16 +3,17 @@ import pandas as pd
 import numpy as np
 from pyne import nucname
 
-def get_transaction_TS(db, sender, receiver, *args):
+def get_transaction_TS(db, sender, receiver, *xargs):
 
+  nuc_list = []
+  for inx, nuc in enumerate(xargs):
+    nuc_list.append(nucname.id(nuc))
 
   #initiate evaluation
   evaler = cym.Evaluator(db)
   
   # get transation & Agent tables
   trans = evaler.eval('Transactions')
-
-
   agents = evaler.eval('AgentEntry')
   
 # build 2 table for SenderId and ReceiverId
@@ -61,9 +62,16 @@ def get_transaction_TS(db, sender, receiver, *args):
     df = pd.merge(selected_resources[['SimId', 'ResourceId','QualId','Quantity','Units'  ]], df, on=['SimId', 'ResourceId'])
     df = df.drop('ResourceId',1)
 
-    grouped_trans = df[['ReceiverProto', 'SenderProto','Time', 'Quantity']].groupby(['ReceiverProto', 'SenderProto','Time']).sum()
+    if len(nuc_list) != 0: # Nuclide required -> do the Math
+      compo = evaler.eval('Compositions')
+      selected_compo = compo.loc[compo['NucId'].isin(nuc_list)]
 
+      df = pd.merge(selected_compo[['SimId', 'QualId','NucId','MassFrac'  ]], df, on=['SimId', 'QualId'])
+      df['Quantity'] = df['Quantity'] * df['MassFrac']
+    
+    grouped_trans = df[['ReceiverProto', 'SenderProto','Time', 'Quantity']].groupby(['ReceiverProto', 'SenderProto','Time']).sum()
     trans_table = grouped_trans.loc[receiver].loc[sender]
+  
   return trans_table
 
 
