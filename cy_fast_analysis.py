@@ -1,14 +1,18 @@
 import cymetric as cym
 import pandas as pd
 import numpy as np
+from pyne import nucname
+
+def get_transaction_TS(db, sender, receiver, *args):
 
 
-def get_transaction_TS(db, sender, receiver):
   #initiate evaluation
   evaler = cym.Evaluator(db)
   
   # get transation & Agent tables
   trans = evaler.eval('Transactions')
+
+
   agents = evaler.eval('AgentEntry')
   
 # build 2 table for SenderId and ReceiverId
@@ -63,18 +67,25 @@ def get_transaction_TS(db, sender, receiver):
   return trans_table
 
 
-def get_inventory(db, facility):
+def get_inventory(db, facility, *xargs):
+  
+  nuc_list = []
+  for inx, nuc in enumerate(xargs):
+    nuc_list.append(nucname.id(nuc))
+  
   #initiate evaluation
   evaler = cym.Evaluator(db)
   
   # Get inventory table
   inv = evaler.eval('ExplicitInventory')
+  if len(nuc_list) != 0 :
+    inv = inv.loc[inv['NucId'].isin(nuc_list)]
   agents = evaler.eval('AgentEntry')
 
   selected_agents = agents.loc[lambda df: df.Prototype == facility,:]
   if selected_agents.empty:
     print("unknown Facitlity, available Facilities are:")
-    for fac_name in inv.Prototype.unique():
+    for fac_name in agents.Prototype.unique():
       print(fac_name)
     inv_table = 0
   else:
