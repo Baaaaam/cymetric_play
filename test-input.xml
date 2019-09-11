@@ -2,7 +2,7 @@
 
 <simulation>
   <control>
-    <duration>5</duration>
+    <duration>50</duration>
     <startmonth>1</startmonth>
     <startyear>2000</startyear>
     <explicit_inventory>true</explicit_inventory>
@@ -52,7 +52,7 @@
 
   <facility>
     <name>Reactor1</name>
-    <lifetime>16</lifetime>  
+    <lifetime>5</lifetime>  
     <config>
       <Reactor>
         <fuel_incommods>
@@ -89,6 +89,71 @@
         <pref_change_times> <val>4</val> </pref_change_times>
         <pref_change_commods> <val>uox</val> </pref_change_commods>
         <pref_change_values> <val>2.0</val> </pref_change_values>
+        <usagemetadata> 
+          <item>  
+            <keyword>co2</keyword> 
+            <usage>  
+              <item>  
+                <key>decommission</key>  
+                <value>22</value>  
+              </item>  
+              <item>  
+                <key>deployment</key>  
+                <value>35</value>  
+              </item>  
+              <item>  
+                <key>timestep</key>  
+                <value>3</value>  
+              </item>  
+              <item>  
+                <key>throughput</key>  
+                <value>15</value>  
+              </item>  
+            </usage>  
+          </item>  
+         
+          <item>  
+            <keyword>water</keyword> 
+            <usage>  
+              <item>  
+                <key>deployment</key>  
+                <value>23</value>  
+              </item>  
+              <item>  
+                <key>timestep</key>  
+                <value>1</value>  
+              </item>  
+            </usage>  
+          </item>  
+         
+          <item>  
+            <keyword>land</keyword> 
+            <usage>  
+              <item>  
+                <key>decommission</key>  
+                <value>24</value>  
+              </item>  
+            </usage>  
+          </item>  
+         
+          <item>  
+            <keyword>manpower</keyword> 
+            <usage>  
+              <item>  
+                <key>deployment</key>  
+                <value>48</value>  
+              </item>  
+              <item>  
+                <key>decommission</key>  
+                <value>36</value>  
+              </item>  
+              <item>  
+                <key>timestep</key>  
+                <value>42</value>  
+              </item>  
+            </usage>  
+          </item>  
+        </usagemetadata>
       </Reactor>
     </config>
   </facility>
@@ -143,7 +208,7 @@
               </item>  
               <item>  
                 <key>timestep</key>  
-                <value>35</value>  
+                <value>4</value>  
               </item>  
               <item>  
                 <key>throughput</key>  
@@ -159,6 +224,10 @@
                 <key>deployment</key>  
                 <value>43</value>  
               </item>  
+              <item>  
+                <key>timestep</key>  
+                <value>3</value>  
+              </item>  
             </usage>  
           </item>  
          
@@ -169,6 +238,10 @@
                 <key>decommission</key>  
                 <value>24</value>  
               </item>  
+              <item>  
+                <key>decommission</key>  
+                <value>78</value>  
+              </item>  
             </usage>  
           </item>  
          
@@ -176,18 +249,16 @@
             <keyword>manpower</keyword> 
             <usage>  
               <item>  
-                <key>timestep</key>  
+                <key>decommission</key>  
                 <value>32</value>  
               </item>  
-            </usage>  
-          </item>  
-         
-          <item>  
-            <keyword>lolipop</keyword> 
-            <usage>  
               <item>  
-                <key>throughput</key>  
-                <value>11</value>  
+                <key>deployment</key>  
+                <value>53</value>  
+              </item>  
+              <item>  
+                <key>timestep</key>  
+                <value>23</value>  
               </item>  
             </usage>  
           </item>  
@@ -246,7 +317,7 @@
               </item>  
               <item>  
                 <key>timestep</key>  
-                <value>35</value>  
+                <value>2</value>  
               </item>  
               <item>  
                 <key>throughput</key>  
@@ -262,6 +333,10 @@
                 <key>deployment</key>  
                 <value>43</value>  
               </item>  
+              <item>  
+                <key>decommission</key>  
+                <value>24</value>  
+              </item>  
             </usage>  
           </item>  
          
@@ -272,6 +347,10 @@
                 <key>decommission</key>  
                 <value>24</value>  
               </item>  
+              <item>  
+                <key>timestep</key>  
+                <value>2</value>  
+              </item>  
             </usage>  
           </item>  
          
@@ -279,18 +358,16 @@
             <keyword>manpower</keyword> 
             <usage>  
               <item>  
+                <key>decommission</key>  
+                <value>12</value>  
+              </item>  
+              <item>  
+                <key>deployment</key>  
+                <value>43</value>  
+              </item>  
+              <item>  
                 <key>timestep</key>  
                 <value>32</value>  
-              </item>  
-            </usage>  
-          </item>  
-         
-          <item>  
-            <keyword>lolipop</keyword> 
-            <usage>  
-              <item>  
-                <key>throughput</key>  
-                <value>11</value>  
               </item>  
             </usage>  
           </item>  
@@ -312,22 +389,71 @@
             <val>UOX_Source</val>
             <val>MOX_Source</val>
             <val>Reactor1</val>
+            <val>Reactor1</val>
+            <val>Reactor1</val>
             <val>Reactor2</val>
+            <val>Reactor2</val>
+            <val>Reactor2</val>
+            <val>Reactor3</val>
+            <val>Reactor3</val>
+            <val>Reactor3</val>
+            <val>Reactor1</val>
+            <val>Reactor1</val>
+            <val>Reactor1</val>
+            <val>Reactor2</val>
+            <val>Reactor2</val>
+            <val>Reactor2</val>
+            <val>Reactor3</val>
+            <val>Reactor3</val>
             <val>Reactor3</val>
           </prototypes>
           <build_times>
             <val>1</val>
             <val>1</val>
+            
             <val>1</val>
             <val>2</val>
             <val>3</val>
+            <val>4</val>
+            <val>5</val>
+            <val>6</val>
+            <val>7</val>
+            <val>8</val>
+            <val>9</val>
+            
+            <val>11</val>
+            <val>12</val>
+            <val>16</val>
+            <val>24</val>
+            <val>27</val>
+            <val>30</val>
+            <val>31</val>
+            <val>35</val>
+            <val>38</val>
           </build_times>
           <n_build>
             <val>1</val>
             <val>1</val>
+            
+            <val>6</val>
             <val>1</val>
+            <val>5</val>
             <val>1</val>
+            <val>4</val>
             <val>1</val>
+            <val>3</val>
+            <val>1</val>
+            <val>2</val>
+            
+            <val>2</val>
+            <val>1</val>
+            <val>3</val>
+            <val>7</val>
+            <val>8</val>
+            <val>3</val>
+            <val>2</val>
+            <val>1</val>
+            <val>4</val>
           </n_build>
         </DeployInst>
       </config>
