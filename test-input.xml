@@ -107,7 +107,7 @@
               </item>  
               <item>  
                 <key>throughput</key>  
-                <value>15</value>  
+                <value>50</value>  
               </item>  
             </usage>  
           </item>  
@@ -122,6 +122,10 @@
               <item>  
                 <key>timestep</key>  
                 <value>1</value>  
+              </item>  
+              <item>  
+                <key>throughput</key>  
+                <value>37</value>  
               </item>  
             </usage>  
           </item>  
@@ -150,6 +154,10 @@
               <item>  
                 <key>timestep</key>  
                 <value>42</value>  
+              </item>  
+              <item>  
+                <key>throughput</key>  
+                <value>98</value>  
               </item>  
             </usage>  
           </item>  
@@ -228,6 +236,10 @@
                 <key>timestep</key>  
                 <value>3</value>  
               </item>  
+              <item>  
+                <key>throughput</key>  
+                <value>23</value>  
+              </item>  
             </usage>  
           </item>  
          
@@ -259,6 +271,10 @@
               <item>  
                 <key>timestep</key>  
                 <value>23</value>  
+              </item>  
+              <item>  
+                <key>throughput</key>  
+                <value>13</value>  
               </item>  
             </usage>  
           </item>  
@@ -337,6 +353,10 @@
                 <key>decommission</key>  
                 <value>24</value>  
               </item>  
+              <item>  
+                <key>throughput</key>  
+                <value>76</value>  
+              </item>  
             </usage>  
           </item>  
          
@@ -368,6 +388,10 @@
               <item>  
                 <key>timestep</key>  
                 <value>32</value>  
+              </item>  
+              <item>  
+                <key>throughput</key>  
+                <value>29</value>  
               </item>  
             </usage>  
           </item>  
